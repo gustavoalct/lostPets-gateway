@@ -1,18 +1,17 @@
-package com.gateway.controller.Account;
+package com.gateway.controller.customer;
 
 import com.gateway.dto.request.LoginRequest;
 import com.gateway.dto.respose.LoginResponse;
+import com.gateway.dto.respose.UserResponse;
 import com.gateway.service.AccountService;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/account")
+@RequestMapping("/customer")
 public class LoginController {
 
     @Autowired
@@ -23,10 +22,9 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody LoginRequest loginRequest){
-        LoginResponse loginResponse = accountService.login(loginRequest);
-        return new ResponseEntity<>(loginRequest, HttpStatus.ACCEPTED);
+    @ResponseStatus(HttpStatus.OK)
+    public UserResponse login(@RequestBody LoginRequest loginRequest){
+        return accountService.login(loginRequest);
     }
-
 
 }
